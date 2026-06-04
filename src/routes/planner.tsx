@@ -1,0 +1,102 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { generatePlan } from "@/lib/ai.functions";
+import { PageShell, Disclaimer } from "@/components/page-shell";
+import { ResultCard } from "@/components/result-card";
+import { useLocalState } from "@/lib/threads";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { toast } from "sonner";
+import { Sparkles } from "lucide-react";
+
+export const Route = createFileRoute("/planner")({
+  head: () => ({
+    meta: [
+      { title: "AI Task Planner — Praxis" },
+      {
+        name: "description",
+        content:
+          "Generate prioritized daily or weekly plans with focus and time-blocking tips.",
+      },
+    ],
+  }),
+  component: PlannerPage,
+});
+
+type Horizon = "day" | "week";
+
+function PlannerPage() {
+  const run = useServerFn(generatePlan);
+  const [goals, setGoals] = useState("");
+  const [horizon, setHorizon] = useState<Horizon>("day");
+  const [result, setResult] = useLocalState<string>("apa.plan.last", "");
+  const [loading, setLoading] = useState(false);
+
+  const onRun = async () => {
+    if (!goals.trim()) {
+      toast.error("Add tasks or goals to plan around.");
+      return;
+    }
+    setLoading(true);
+    try {
+      const { plan } = await run({ data: { goals, horizon } });
+      setResult(plan);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Failed to plan.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <PageShell
+      eyebrow="Focus"
+      title="AI Task Planner"
+      description="List what's on your plate. Get a prioritized, time-blocked plan in seconds."
+    >
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+        <Card className="border-border/70 bg-card p-6 shadow-[var(--shadow-soft)]">
+          <div className="space-y-5">
+            <Tabs value={horizon} onValueChange={(v) => setHorizon(v as Horizon)}>
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="day">Daily</TabsTrigger>
+                <TabsTrigger value="week">Weekly</TabsTrigger>
+              </TabsList>
+            </Tabs>
+            <div className="space-y-2">
+              <Label htmlFor="goals">Tasks, goals, and constraints</Label>
+              <Textarea
+                id="goals"
+                value={goals}
+                onChange={(e) => setGoals(e.target.value)}
+                placeholder={
+                  horizon === "day"
+                    ? "e.g. Ship onboarding email v2, review 3 PRs, prep Friday board update, 1:1 with Maya at 3pm."
+                    : "e.g. Launch beta to 25 customers, finish Q3 forecast, draft hiring plan, recover sleep schedule."
+                }
+                rows={10}
+                className="resize-none"
+              />
+            </div>
+            <Button onClick={onRun} disabled={loading} className="w-full gap-2">
+              <Sparkles className="h-4 w-4" />
+              {loading ? "Planning…" : `Generate ${horizon === "day" ? "daily" : "weekly"} plan`}
+            </Button>
+          </div>
+        </Card>
+
+        <ResultCard
+          title={horizon === "day" ? "Today's plan" : "This week's plan"}
+          content={result}
+          loading={loading}
+          emptyHint="A prioritized, time-blocked plan will appear here."
+        />
+      </div>
+      <Disclaimer />
+    </PageShell>
+  );
+}

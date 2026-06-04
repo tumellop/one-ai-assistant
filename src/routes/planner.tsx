@@ -16,7 +16,7 @@ import { Sparkles } from "lucide-react";
 export const Route = createFileRoute("/planner")({
   head: () => ({
     meta: [
-      { title: "AI Task Planner — Praxis" },
+      { title: "AI Task Planner — ONE" },
       {
         name: "description",
         content:

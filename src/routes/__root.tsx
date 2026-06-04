@@ -80,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ONE — AI Workplace Productivity Assistant" },
+      { title: "Praxis — AI Workplace Productivity Assistant" },
       {
         name: "description",
         content:
@@ -90,6 +90,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "preconnect",
         href: "https://fonts.googleapis.com",
       },
+      { property: "og:title", content: "Praxis — AI Workplace Productivity Assistant" },
+      { name: "twitter:title", content: "Praxis — AI Workplace Productivity Assistant" },
+      { name: "description", content: "AI Workplace Productivity Assistant automates professional tasks with AI-powered tools." },
+      { property: "og:description", content: "AI Workplace Productivity Assistant automates professional tasks with AI-powered tools." },
+      { name: "twitter:description", content: "AI Workplace Productivity Assistant automates professional tasks with AI-powered tools." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1ca4648a-1636-4473-b37f-28b158dcdfe5/id-preview-a110c26d--da8edee0-66e6-4df0-9400-f602fbb4d009.lovable.app-1780574191189.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1ca4648a-1636-4473-b37f-28b158dcdfe5/id-preview-a110c26d--da8edee0-66e6-4df0-9400-f602fbb4d009.lovable.app-1780574191189.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -138,11 +147,15 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <SidebarProvider>
-        <div className="flex min-h-screen w-full bg-slate-50">
+        <div className="flex min-h-screen w-full bg-background">
           <AppSidebar />
-          <div className="flex min-h-screen flex-1 flex-col bg-slate-50">
-            <header className="flex h-14 items-center gap-3 border-b border-slate-200 bg-white/80 px-4 backdrop-blur-sm md:px-6">
+          <div className="flex min-h-screen flex-1 flex-col">
+            <header className="flex h-14 items-center gap-3 border-b border-border/60 bg-surface/80 px-4 backdrop-blur-sm md:px-6">
               <SidebarTrigger />
+              <div className="h-5 w-px bg-border" />
+              <p className="text-xs text-muted-foreground">
+                AI-generated content may require human review.
+              </p>
             </header>
             <main className="flex-1">
               <Outlet />

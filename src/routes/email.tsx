@@ -22,7 +22,7 @@ import { Sparkles } from "lucide-react";
 export const Route = createFileRoute("/email")({
   head: () => ({
     meta: [
-      { title: "Smart Email Generator — Praxis" },
+      { title: "Smart Email Generator — ONE" },
       {
         name: "description",
         content:

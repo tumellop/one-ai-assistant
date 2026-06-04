@@ -15,7 +15,7 @@ import { Sparkles } from "lucide-react";
 export const Route = createFileRoute("/notes")({
   head: () => ({
     meta: [
-      { title: "Meeting Notes Summarizer — Praxis" },
+      { title: "Meeting Notes Summarizer — ONE" },
       {
         name: "description",
         content:

@@ -80,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Praxis — AI Workplace Productivity Assistant" },
+      { title: "ONE — AI Workplace Productivity Assistant" },
       {
         name: "description",
         content:
@@ -143,10 +143,6 @@ function RootComponent() {
           <div className="flex min-h-screen flex-1 flex-col bg-slate-50">
             <header className="flex h-14 items-center gap-3 border-b border-slate-200 bg-white/80 px-4 backdrop-blur-sm md:px-6">
               <SidebarTrigger />
-              <div className="h-5 w-px bg-slate-200" />
-              <p className="text-xs text-slate-500">
-                AI-generated content may require human review.
-              </p>
             </header>
             <main className="flex-1">
               <Outlet />

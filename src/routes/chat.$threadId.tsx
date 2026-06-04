@@ -33,7 +33,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/chat/$threadId")({
   head: () => ({
     meta: [
-      { title: "Assistant Chat — Praxis" },
+      { title: "Assistant Chat — ONE" },
       {
         name: "description",
         content: "An always-on workspace copilot for ad-hoc questions and quick iteration.",

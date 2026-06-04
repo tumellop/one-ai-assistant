@@ -40,7 +40,7 @@ export function AppSidebar() {
         <Link to="/" className="flex items-center gap-2.5">
           <BrandMark className="h-8 w-8 shrink-0" />
           <div className="flex flex-col leading-tight group-data-[collapsible=icon]:hidden">
-            <span className="text-sm font-semibold tracking-tight text-slate-900">Praxis</span>
+            <span className="text-sm font-semibold tracking-tight text-slate-900">ONE</span>
             <span className="text-[11px] text-slate-500">
               Workplace AI Assistant
             </span>
@@ -80,9 +80,6 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="bg-white px-3 py-3 text-[11px] leading-snug text-slate-400 group-data-[collapsible=icon]:hidden">
-        AI-generated content may require human review.
-      </SidebarFooter>
     </Sidebar>
   );
 }

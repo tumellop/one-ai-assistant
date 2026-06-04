@@ -55,7 +55,7 @@ function NotesPage() {
       description="Paste raw notes or a transcript. Get a clean summary, decisions, and action items."
     >
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-        <Card className="border-border/70 bg-card p-6 shadow-[var(--shadow-soft)]">
+        <Card className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="notes">Raw notes or transcript</Label>
@@ -68,7 +68,7 @@ function NotesPage() {
                 className="resize-none font-mono text-[13px] leading-relaxed"
               />
             </div>
-            <Button onClick={onRun} disabled={loading} className="w-full gap-2">
+            <Button onClick={onRun} disabled={loading} className="h-auto w-full gap-2 rounded-full bg-slate-900 py-3 text-base font-semibold text-white hover:bg-slate-800">
               <Sparkles className="h-4 w-4" />
               {loading ? "Summarizing…" : "Summarize notes"}
             </Button>

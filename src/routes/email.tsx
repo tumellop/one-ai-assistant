@@ -67,7 +67,7 @@ function EmailPage() {
       description="Describe the situation. Pick a tone and audience. Get a polished draft you can send."
     >
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-        <Card className="border-border/70 bg-card p-6 shadow-[var(--shadow-soft)]">
+        <Card className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
           <div className="space-y-5">
             <div className="space-y-2">
               <Label htmlFor="ctx">What do you want to convey?</Label>
@@ -104,7 +104,7 @@ function EmailPage() {
                 </Select>
               </div>
             </div>
-            <Button onClick={onGenerate} disabled={loading} className="w-full gap-2">
+            <Button onClick={onGenerate} disabled={loading} className="h-auto w-full gap-2 rounded-full bg-slate-900 py-3 text-base font-semibold text-white hover:bg-slate-800">
               <Sparkles className="h-4 w-4" />
               {loading ? "Drafting…" : "Generate email"}
             </Button>

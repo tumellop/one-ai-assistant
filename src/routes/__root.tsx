@@ -138,13 +138,13 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <SidebarProvider>
-        <div className="flex min-h-screen w-full bg-background">
+        <div className="flex min-h-screen w-full bg-slate-50">
           <AppSidebar />
-          <div className="flex min-h-screen flex-1 flex-col">
-            <header className="flex h-14 items-center gap-3 border-b border-border/60 bg-surface/80 px-4 backdrop-blur-sm md:px-6">
+          <div className="flex min-h-screen flex-1 flex-col bg-slate-50">
+            <header className="flex h-14 items-center gap-3 border-b border-slate-200 bg-white/80 px-4 backdrop-blur-sm md:px-6">
               <SidebarTrigger />
-              <div className="h-5 w-px bg-border" />
-              <p className="text-xs text-muted-foreground">
+              <div className="h-5 w-px bg-slate-200" />
+              <p className="text-xs text-slate-500">
                 AI-generated content may require human review.
               </p>
             </header>

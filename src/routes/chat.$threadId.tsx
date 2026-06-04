@@ -110,16 +110,12 @@ function ChatThreadView({ threadId }: { threadId: string }) {
     textareaRef.current?.focus();
   }, [threadId, status]);
 
-  const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      const text = input.trim();
-      if (!text || status === "submitted" || status === "streaming") return;
-      setInput("");
-      void sendMessage({ text });
-    },
-    [input, status, sendMessage],
-  );
+  const handleSubmit = useCallback(() => {
+    const text = input.trim();
+    if (!text || status === "submitted" || status === "streaming") return;
+    setInput("");
+    void sendMessage({ text });
+  }, [input, status, sendMessage]);
 
   const onNewThread = () => {
     const id = newThreadId();
@@ -227,9 +223,7 @@ function ChatThreadView({ threadId }: { threadId: string }) {
                     .join("");
                   return (
                     <Message key={m.id} from={m.role}>
-                      <MessageContent
-                        variant={m.role === "user" ? "contained" : "flat"}
-                      >
+                      <MessageContent>
                         {m.role === "assistant" ? (
                           <article className="prose prose-sm max-w-none text-foreground prose-headings:font-display prose-headings:tracking-tight prose-p:text-foreground/90 prose-li:text-foreground/90 prose-strong:text-foreground prose-code:text-foreground prose-code:before:hidden prose-code:after:hidden">
                             <ReactMarkdown>{text}</ReactMarkdown>
@@ -243,7 +237,7 @@ function ChatThreadView({ threadId }: { threadId: string }) {
                 })}
                 {status === "submitted" && (
                   <Message from="assistant">
-                    <MessageContent variant="flat">
+                    <MessageContent>
                       <Shimmer>Thinking…</Shimmer>
                     </MessageContent>
                   </Message>

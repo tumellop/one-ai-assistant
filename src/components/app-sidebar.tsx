@@ -81,6 +81,22 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter className="bg-white px-3 pb-3">
+        <div className="mb-2 rounded-xl border border-slate-200/70 bg-slate-50 p-3 text-[11px] leading-snug text-slate-500 group-data-[collapsible=icon]:hidden">
+          AI-generated content. Pick a tone and audience. Get a polished draft you can send.
+        </div>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              tooltip="Settings"
+              className="rounded-xl text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+            >
+              <Settings className="h-4 w-4" />
+              <span>Settings</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 }

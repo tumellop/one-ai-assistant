@@ -59,7 +59,7 @@ function PlannerPage() {
       description="List what's on your plate. Get a prioritized, time-blocked plan in seconds."
     >
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-        <Card className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
+        <Card className="rounded-3xl border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur-md">
           <div className="space-y-5">
             <Tabs value={horizon} onValueChange={(v) => setHorizon(v as Horizon)}>
               <TabsList className="grid w-full grid-cols-2">

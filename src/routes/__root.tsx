@@ -144,18 +144,36 @@ function RootComponent() {
     );
   }
 
+  const orbColor =
+    pathname.startsWith("/email")
+      ? "bg-cyan-300"
+      : pathname.startsWith("/notes")
+        ? "bg-purple-300"
+        : pathname.startsWith("/planner")
+          ? "bg-green-300"
+          : pathname.startsWith("/research")
+            ? "bg-rose-300"
+            : pathname.startsWith("/chat")
+              ? "bg-orange-300"
+              : "bg-slate-300";
+
   return (
     <QueryClientProvider client={queryClient}>
       <SidebarProvider>
-        <div className="flex min-h-screen w-full bg-background">
+        <div className="flex min-h-screen w-full bg-slate-50">
           <AppSidebar />
-          <div className="flex min-h-screen flex-1 flex-col">
-            <header className="flex h-14 items-center gap-3 border-b border-border/60 bg-surface/80 px-4 backdrop-blur-sm md:px-6">
+          <div className="relative flex min-h-screen flex-1 flex-col overflow-hidden">
+            {/* Ambient glow orbs — change color per tool */}
+            <div
+              aria-hidden
+              className={`pointer-events-none absolute -top-40 -right-40 -z-10 h-[600px] w-[600px] rounded-full opacity-20 blur-[120px] transition-colors duration-700 ${orbColor}`}
+            />
+            <div
+              aria-hidden
+              className={`pointer-events-none absolute -bottom-40 -left-40 -z-10 h-[600px] w-[600px] rounded-full opacity-20 blur-[120px] transition-colors duration-700 ${orbColor}`}
+            />
+            <header className="flex h-14 items-center gap-3 border-b border-slate-200/60 bg-white/70 px-4 backdrop-blur-md md:px-6">
               <SidebarTrigger />
-              <div className="h-5 w-px bg-border" />
-              <p className="text-xs text-muted-foreground">
-                AI-generated content may require human review.
-              </p>
             </header>
             <main className="flex-1">
               <Outlet />

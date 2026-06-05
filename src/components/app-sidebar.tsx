@@ -39,12 +39,12 @@ export function AppSidebar() {
     <Sidebar collapsible="icon" className="border-r border-slate-200 bg-white [&>div]:bg-white">
       <SidebarHeader className="bg-white px-3 py-4">
         <Link to="/" className="flex items-center gap-2.5">
-          <BrandMark className="h-8 w-8 shrink-0" />
+          <BrandMark className="h-9 w-9 shrink-0" />
           <div className="flex flex-col leading-tight group-data-[collapsible=icon]:hidden">
-            <span className="text-sm font-semibold tracking-tight text-slate-900">ONE</span>
-            <span className="text-[11px] text-slate-500">
-              Workplace AI Assistant
+            <span className="text-sm font-semibold tracking-tight text-slate-900">
+              ONE Workplace
             </span>
+            <span className="text-[11px] text-slate-500">AI Assistant</span>
           </div>
         </Link>
       </SidebarHeader>

@@ -55,7 +55,7 @@ function NotesPage() {
       description="Paste raw notes or a transcript. Get a clean summary, decisions, and action items."
     >
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-        <Card className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
+        <Card className="rounded-3xl border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur-md">
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="notes">Raw notes or transcript</Label>

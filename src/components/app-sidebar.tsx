@@ -6,6 +6,7 @@ import {
   ListTodo,
   Search,
   MessageSquare,
+  Settings,
 } from "lucide-react";
 import {
   Sidebar,
@@ -38,12 +39,12 @@ export function AppSidebar() {
     <Sidebar collapsible="icon" className="border-r border-slate-200 bg-white [&>div]:bg-white">
       <SidebarHeader className="bg-white px-3 py-4">
         <Link to="/" className="flex items-center gap-2.5">
-          <BrandMark className="h-8 w-8 shrink-0" />
+          <BrandMark className="h-9 w-9 shrink-0" />
           <div className="flex flex-col leading-tight group-data-[collapsible=icon]:hidden">
-            <span className="text-sm font-semibold tracking-tight text-slate-900">ONE</span>
-            <span className="text-[11px] text-slate-500">
-              Workplace AI Assistant
+            <span className="text-sm font-semibold tracking-tight text-slate-900">
+              ONE Workplace
             </span>
+            <span className="text-[11px] text-slate-500">AI Assistant</span>
           </div>
         </Link>
       </SidebarHeader>
@@ -80,6 +81,22 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter className="bg-white px-3 pb-3">
+        <div className="mb-2 rounded-xl border border-slate-200/70 bg-slate-50 p-3 text-[11px] leading-snug text-slate-500 group-data-[collapsible=icon]:hidden">
+          AI-generated content. Pick a tone and audience. Get a polished draft you can send.
+        </div>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              tooltip="Settings"
+              className="rounded-xl text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+            >
+              <Settings className="h-4 w-4" />
+              <span>Settings</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 }

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { researchTopic } from "@/lib/ai.functions";
-import { PageShell, Disclaimer } from "@/components/page-shell";
+import { PageShell, CardDisclaimer, SectionCardTitle } from "@/components/page-shell";
 import { ResultCard } from "@/components/result-card";
 import { useLocalState } from "@/lib/threads";
 import { Card } from "@/components/ui/card";
@@ -54,35 +54,47 @@ function ResearchPage() {
       title="Research Assistant"
       description="Paste an article, a report, or a topic. Get a TL;DR, key insights, and recommendations."
     >
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-        <Card className="rounded-3xl border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur-md">
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="topic">Topic, article, or report</Label>
-              <Textarea
-                id="topic"
-                value={topic}
-                onChange={(e) => setTopic(e.target.value)}
-                placeholder="Paste source material or describe the topic…"
-                rows={16}
-                className="resize-none"
-              />
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div>
+          <Card className="rounded-3xl border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur-md">
+            <SectionCardTitle>Input</SectionCardTitle>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="topic" className="text-xs text-slate-500">
+                  Topic, article, or report
+                </Label>
+                <Textarea
+                  id="topic"
+                  value={topic}
+                  onChange={(e) => setTopic(e.target.value)}
+                  placeholder="Paste source material or describe the topic…"
+                  rows={8}
+                  className="resize-none"
+                />
+              </div>
+              <Button
+                onClick={onRun}
+                disabled={loading}
+                className="h-auto w-full gap-2 rounded-full bg-slate-900 py-3 text-sm font-semibold text-white hover:bg-slate-800"
+              >
+                <Sparkles className="h-4 w-4" />
+                {loading ? "Researching…" : "Summarize & analyze"}
+              </Button>
             </div>
-            <Button onClick={onRun} disabled={loading} className="h-auto w-full gap-2 rounded-full bg-slate-900 py-3 text-base font-semibold text-white hover:bg-slate-800">
-              <Sparkles className="h-4 w-4" />
-              {loading ? "Researching…" : "Summarize & analyze"}
-            </Button>
-          </div>
-        </Card>
+          </Card>
+          <CardDisclaimer />
+        </div>
 
-        <ResultCard
-          title="Research brief"
-          content={result}
-          loading={loading}
-          emptyHint="A TL;DR, key insights, and recommendations will appear here."
-        />
+        <div>
+          <ResultCard
+            title="Output Card"
+            content={result}
+            loading={loading}
+            emptyHint="A TL;DR, key insights, and recommendations will appear here."
+          />
+          <CardDisclaimer />
+        </div>
       </div>
-      <Disclaimer />
     </PageShell>
   );
 }

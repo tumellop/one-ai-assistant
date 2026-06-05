@@ -80,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Praxis — AI Workplace Productivity Assistant" },
+      { title: "ONE — AI Workplace Productivity Assistant" },
       {
         name: "description",
         content:
@@ -90,8 +90,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "preconnect",
         href: "https://fonts.googleapis.com",
       },
-      { property: "og:title", content: "Praxis — AI Workplace Productivity Assistant" },
-      { name: "twitter:title", content: "Praxis — AI Workplace Productivity Assistant" },
+      { property: "og:title", content: "ONE — AI Workplace Productivity Assistant" },
+      { name: "twitter:title", content: "ONE — AI Workplace Productivity Assistant" },
       { name: "description", content: "AI Workplace Productivity Assistant automates professional tasks with AI-powered tools." },
       { property: "og:description", content: "AI Workplace Productivity Assistant automates professional tasks with AI-powered tools." },
       { name: "twitter:description", content: "AI Workplace Productivity Assistant automates professional tasks with AI-powered tools." },

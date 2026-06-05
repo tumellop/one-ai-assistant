@@ -25,8 +25,9 @@ export function ResultCard({
   };
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-sm">
-      <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4">
+    <div className="overflow-hidden rounded-3xl border border-white/60 bg-white/70 shadow-sm backdrop-blur-md">
+      <div className="flex items-center justify-between border-b border-white/60 px-6 py-4">
+
         <h3 className="text-sm font-semibold tracking-tight text-slate-900">{title}</h3>
         {content && !loading && (
           <Button variant="ghost" size="sm" onClick={onCopy} className="h-8 gap-1.5 rounded-full text-slate-600 hover:bg-slate-100 hover:text-slate-900">

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { summarizeNotes } from "@/lib/ai.functions";
-import { PageShell, Disclaimer } from "@/components/page-shell";
+import { PageShell, CardDisclaimer, SectionCardTitle } from "@/components/page-shell";
 import { ResultCard } from "@/components/result-card";
 import { useLocalState } from "@/lib/threads";
 import { Card } from "@/components/ui/card";
@@ -54,35 +54,47 @@ function NotesPage() {
       title="Meeting Notes Summarizer"
       description="Paste raw notes or a transcript. Get a clean summary, decisions, and action items."
     >
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-        <Card className="rounded-3xl border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur-md">
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="notes">Raw notes or transcript</Label>
-              <Textarea
-                id="notes"
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                placeholder="Paste notes here…"
-                rows={16}
-                className="resize-none font-mono text-[13px] leading-relaxed"
-              />
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div>
+          <Card className="rounded-3xl border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur-md">
+            <SectionCardTitle>Input</SectionCardTitle>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="notes" className="text-xs text-slate-500">
+                  Raw notes or transcript
+                </Label>
+                <Textarea
+                  id="notes"
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  placeholder="Paste notes here…"
+                  rows={8}
+                  className="resize-none font-mono text-[13px] leading-relaxed"
+                />
+              </div>
+              <Button
+                onClick={onRun}
+                disabled={loading}
+                className="h-auto w-full gap-2 rounded-full bg-slate-900 py-3 text-sm font-semibold text-white hover:bg-slate-800"
+              >
+                <Sparkles className="h-4 w-4" />
+                {loading ? "Summarizing…" : "Summarize notes"}
+              </Button>
             </div>
-            <Button onClick={onRun} disabled={loading} className="h-auto w-full gap-2 rounded-full bg-slate-900 py-3 text-base font-semibold text-white hover:bg-slate-800">
-              <Sparkles className="h-4 w-4" />
-              {loading ? "Summarizing…" : "Summarize notes"}
-            </Button>
-          </div>
-        </Card>
+          </Card>
+          <CardDisclaimer />
+        </div>
 
-        <ResultCard
-          title="Summary"
-          content={result}
-          loading={loading}
-          emptyHint="A structured summary with decisions and action items will appear here."
-        />
+        <div>
+          <ResultCard
+            title="Output Card"
+            content={result}
+            loading={loading}
+            emptyHint="A structured summary with decisions and action items will appear here."
+          />
+          <CardDisclaimer />
+        </div>
       </div>
-      <Disclaimer />
     </PageShell>
   );
 }

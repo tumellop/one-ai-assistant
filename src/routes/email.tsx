@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { generateEmail } from "@/lib/ai.functions";
-import { PageShell, Disclaimer } from "@/components/page-shell";
+import { PageShell, CardDisclaimer, SectionCardTitle } from "@/components/page-shell";
 import { ResultCard } from "@/components/result-card";
 import { useLocalState } from "@/lib/threads";
 import { Card } from "@/components/ui/card";
@@ -66,59 +66,71 @@ function EmailPage() {
       title="Smart Email Generator"
       description="Describe the situation. Pick a tone and audience. Get a polished draft you can send."
     >
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-        <Card className="rounded-3xl border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur-md">
-          <div className="space-y-5">
-            <div className="space-y-2">
-              <Label htmlFor="ctx">What do you want to convey?</Label>
-              <Textarea
-                id="ctx"
-                value={context}
-                onChange={(e) => setContext(e.target.value)}
-                placeholder="e.g. Follow up with Acme on the Q3 proposal. They've been quiet for 10 days; offer a 20-minute call next Tuesday."
-                rows={8}
-                className="resize-none"
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div>
+          <Card className="rounded-3xl border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur-md">
+            <SectionCardTitle>Input</SectionCardTitle>
+            <div className="space-y-4">
               <div className="space-y-2">
-                <Label>Tone</Label>
-                <Select value={tone} onValueChange={(v) => setTone(v as Tone)}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="formal">Formal</SelectItem>
-                    <SelectItem value="informal">Informal</SelectItem>
-                    <SelectItem value="persuasive">Persuasive</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Label htmlFor="ctx" className="text-xs text-slate-500">
+                  What do you want to convey?
+                </Label>
+                <Textarea
+                  id="ctx"
+                  value={context}
+                  onChange={(e) => setContext(e.target.value)}
+                  placeholder="e.g. Follow up with Acme on the Q3 proposal."
+                  rows={3}
+                  className="resize-none"
+                />
               </div>
-              <div className="space-y-2">
-                <Label>Audience</Label>
-                <Select value={audience} onValueChange={(v) => setAudience(v as Audience)}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="client">Client</SelectItem>
-                    <SelectItem value="manager">Manager</SelectItem>
-                    <SelectItem value="team">Team</SelectItem>
-                  </SelectContent>
-                </Select>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <Label className="text-xs text-slate-500">Tone</Label>
+                  <Select value={tone} onValueChange={(v) => setTone(v as Tone)}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="formal">Formal</SelectItem>
+                      <SelectItem value="informal">Informal</SelectItem>
+                      <SelectItem value="persuasive">Persuasive</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-1.5">
+                  <Label className="text-xs text-slate-500">Audience</Label>
+                  <Select value={audience} onValueChange={(v) => setAudience(v as Audience)}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="client">Client</SelectItem>
+                      <SelectItem value="manager">Manager</SelectItem>
+                      <SelectItem value="team">Team</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
+              <Button
+                onClick={onGenerate}
+                disabled={loading}
+                className="h-auto w-full gap-2 rounded-full bg-slate-900 py-3 text-sm font-semibold text-white hover:bg-slate-800"
+              >
+                <Sparkles className="h-4 w-4" />
+                {loading ? "Drafting…" : "Generate email"}
+              </Button>
             </div>
-            <Button onClick={onGenerate} disabled={loading} className="h-auto w-full gap-2 rounded-full bg-slate-900 py-3 text-base font-semibold text-white hover:bg-slate-800">
-              <Sparkles className="h-4 w-4" />
-              {loading ? "Drafting…" : "Generate email"}
-            </Button>
-          </div>
-        </Card>
+          </Card>
+          <CardDisclaimer />
+        </div>
 
-        <ResultCard
-          title="Draft"
-          content={result}
-          loading={loading}
-          emptyHint="Your generated email will appear here."
-        />
+        <div>
+          <ResultCard
+            title="Output Card"
+            content={result}
+            loading={loading}
+            emptyHint="Your generated email will appear here."
+          />
+          <CardDisclaimer />
+        </div>
       </div>
-      <Disclaimer />
     </PageShell>
   );
 }

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { generatePlan } from "@/lib/ai.functions";
-import { PageShell, Disclaimer } from "@/components/page-shell";
+import { PageShell, CardDisclaimer, SectionCardTitle } from "@/components/page-shell";
 import { ResultCard } from "@/components/result-card";
 import { useLocalState } from "@/lib/threads";
 import { Card } from "@/components/ui/card";
@@ -58,45 +58,57 @@ function PlannerPage() {
       title="AI Task Planner"
       description="List what's on your plate. Get a prioritized, time-blocked plan in seconds."
     >
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-        <Card className="rounded-3xl border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur-md">
-          <div className="space-y-5">
-            <Tabs value={horizon} onValueChange={(v) => setHorizon(v as Horizon)}>
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="day">Daily</TabsTrigger>
-                <TabsTrigger value="week">Weekly</TabsTrigger>
-              </TabsList>
-            </Tabs>
-            <div className="space-y-2">
-              <Label htmlFor="goals">Tasks, goals, and constraints</Label>
-              <Textarea
-                id="goals"
-                value={goals}
-                onChange={(e) => setGoals(e.target.value)}
-                placeholder={
-                  horizon === "day"
-                    ? "e.g. Ship onboarding email v2, review 3 PRs, prep Friday board update, 1:1 with Maya at 3pm."
-                    : "e.g. Launch beta to 25 customers, finish Q3 forecast, draft hiring plan, recover sleep schedule."
-                }
-                rows={10}
-                className="resize-none"
-              />
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div>
+          <Card className="rounded-3xl border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur-md">
+            <SectionCardTitle>Input</SectionCardTitle>
+            <div className="space-y-4">
+              <Tabs value={horizon} onValueChange={(v) => setHorizon(v as Horizon)}>
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="day">Daily</TabsTrigger>
+                  <TabsTrigger value="week">Weekly</TabsTrigger>
+                </TabsList>
+              </Tabs>
+              <div className="space-y-2">
+                <Label htmlFor="goals" className="text-xs text-slate-500">
+                  Tasks, goals, and constraints
+                </Label>
+                <Textarea
+                  id="goals"
+                  value={goals}
+                  onChange={(e) => setGoals(e.target.value)}
+                  placeholder={
+                    horizon === "day"
+                      ? "e.g. Ship onboarding email v2, review 3 PRs, 1:1 with Maya at 3pm."
+                      : "e.g. Launch beta to 25 customers, finish Q3 forecast, draft hiring plan."
+                  }
+                  rows={6}
+                  className="resize-none"
+                />
+              </div>
+              <Button
+                onClick={onRun}
+                disabled={loading}
+                className="h-auto w-full gap-2 rounded-full bg-slate-900 py-3 text-sm font-semibold text-white hover:bg-slate-800"
+              >
+                <Sparkles className="h-4 w-4" />
+                {loading ? "Planning…" : `Generate ${horizon === "day" ? "daily" : "weekly"} plan`}
+              </Button>
             </div>
-            <Button onClick={onRun} disabled={loading} className="h-auto w-full gap-2 rounded-full bg-slate-900 py-3 text-base font-semibold text-white hover:bg-slate-800">
-              <Sparkles className="h-4 w-4" />
-              {loading ? "Planning…" : `Generate ${horizon === "day" ? "daily" : "weekly"} plan`}
-            </Button>
-          </div>
-        </Card>
+          </Card>
+          <CardDisclaimer />
+        </div>
 
-        <ResultCard
-          title={horizon === "day" ? "Today's plan" : "This week's plan"}
-          content={result}
-          loading={loading}
-          emptyHint="A prioritized, time-blocked plan will appear here."
-        />
+        <div>
+          <ResultCard
+            title="Output Card"
+            content={result}
+            loading={loading}
+            emptyHint="A prioritized, time-blocked plan will appear here."
+          />
+          <CardDisclaimer />
+        </div>
       </div>
-      <Disclaimer />
     </PageShell>
   );
 }

@@ -6,6 +6,7 @@ import {
   ListTodo,
   Search,
   MessageSquare,
+  Settings,
 } from "lucide-react";
 import {
   Sidebar,
